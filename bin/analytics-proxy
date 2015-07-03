@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+'use strict'
+
+var cmd = require('commander')
+var pkg = require('../package')
+var proxy = require('..')
+
+cmd
+  .version(pkg.version)
+  .usage('[options]')
+  .option('-t, --token <token>', 'Mashape Analytics Token')
+  .option('-e, --environment [environment]', 'Mashape Analytics Environment')
+  .option('-b, --batch <n>', 'ALF count per request')
+  .option('-c, --entries <n>', 'Entries count per HAR')
+  .option('-p, --port <n>', 'proxy port')
+  .option('-s, --sockets <n>', 'Max sockets to use for connections')
+  .option('-q, --quiet', 'stay quiet, shhhh')
+  .parse(process.argv)
+
+if (!cmd.port) {
+  cmd.help()
+}
+
+proxy(cmd)
